@@ -46,15 +46,15 @@ window.addEventListener('load', function () {
   var content = document.getElementById("content");
 
   // Delay for 2 seconds (2000 milliseconds)
-  setTimeout(function() {
-      // Hide loading overlay
-      loadingOverlay.style.opacity = "0";
-      // Show content
-      content.classList.remove("hidden");
-      // Reset opacity after transition completes
-      setTimeout(function() {
-          loadingOverlay.style.display = "none";
-      }, 500); // Same as transition duration
+  setTimeout(function () {
+    // Hide loading overlay
+    loadingOverlay.style.opacity = "0";
+    // Show content
+    content.classList.remove("hidden");
+    // Reset opacity after transition completes
+    setTimeout(function () {
+      loadingOverlay.style.display = "none";
+    }, 500); // Same as transition duration
   }, 2000); // 2000 milliseconds = 2 seconds
 });
 
@@ -77,23 +77,23 @@ function showSlides(n) {
   var i;
   var slides = document.getElementsByClassName("mySlides");
   var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = slides.length}
+  if (n > slides.length) { slideIndex = 1 }
+  if (n < 1) { slideIndex = slides.length }
   for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";  
+    slides[i].style.display = "none";
   }
   for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" act", "");
+    dots[i].className = dots[i].className.replace(" act", "");
   }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " act";
+  slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].className += " act";
 }
 
-window.onload= function () {
-  setInterval(function(){ 
-     plusSlides(1);
+window.onload = function () {
+  setInterval(function () {
+    plusSlides(1);
   }, 5000);
- }
+}
 
 
 // ______________
@@ -233,3 +233,56 @@ const filter = function () {
 }
 
 addEventOnElem(filterBtns, "click", filter);
+
+
+// ___________
+// review
+// ______________
+
+let currentIndex = 0;
+let intervalId;
+
+// Function to start auto-sliding
+function startAutoSlide() {
+  intervalId = setInterval(function () {
+    changeSlide(1); // Automatically change slide to the next one
+  }, 3000); // Change slide every 5 seconds (adjust as needed)
+}
+
+// Function to stop auto-sliding
+function stopAutoSlide() {
+  clearInterval(intervalId);
+}
+
+// Function to change slide
+function changeSlide(direction) {
+  const slides = document.querySelectorAll('.review-card');
+  const totalSlides = slides.length;
+
+  currentIndex += direction;
+
+  if (currentIndex < 0) {
+    currentIndex = totalSlides - 1;
+  } else if (currentIndex >= totalSlides) {
+    currentIndex = 0;
+  }
+
+  const offset = -currentIndex * 100;
+  document.querySelector('.r-slider').style.transform = `translateX(${offset}%)`;
+}
+
+// Start auto-sliding when the page loads
+window.addEventListener('load', function () {
+  startAutoSlide();
+});
+
+// Stop auto-sliding when the user interacts with the slider
+document.querySelector('.slider-container').addEventListener('mouseenter', function () {
+  stopAutoSlide();
+});
+
+// Restart auto-sliding when the user stops interacting with the slider
+document.querySelector('.slider-container').addEventListener('mouseleave', function () {
+  startAutoSlide();
+});
+

@@ -263,7 +263,7 @@ body {
   grid-template-columns: auto auto;
   align-items: center;
   justify-content: space-around;
-  padding: 0 20px;
+  padding: 0 10px;
   margin-bottom: 40px;
 }
 
@@ -1566,12 +1566,120 @@ textarea.input-field {
 }
 
 
+/*____________________
+      -------------
+      review
+      -----------
+ __________________ */
+
+.review {
+  background-image: url("../images/hair\ wash2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.review .section-text {
+  margin-top: 30px;
+  max-width: 50ch;
+  margin-inline: 0;
+  font-size: 18px;
+  color: white;
+}
+
+.review .container {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-items: center;
+  gap: 60px;
+}
+
+.slider-container {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+
+}
+
+.r-slider {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.review-card {
+  flex: 0 0 auto;
+  width: 100%;
+  text-align: center;
+  padding: 60px;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  backdrop-filter: blur(10px);
+
+
+}
+
+.name {
+  font-size: 21px;
+  font-weight: 500;
+  color: white;
+  margin: 15px 0;
+
+}
+
+.des {
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
+}
+
+.profile-image {
+  width: 80px;
+  /* Adjust size as needed */
+  height: 80px;
+  /* Adjust size as needed */
+  border-radius: 50%;
+  /* Makes it circular */
+  overflow: hidden;
+  /* Ensures image stays within circular shape */
+  margin: 0 auto;
+  /* Centers the image horizontally */
+}
+
+.profile-image img {
+  width: 100%;
+  /* Ensures image fills circular container */
+  height: auto;
+  /* Maintains aspect ratio */
+}
+
+.r-prev,
+.r-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.r-prev {
+  left: 0;
+}
+
+.r-next {
+  right: 0;
+}
+
 
 /* *__________________________*
         #cta section
 *__________________________* */
 .cta-sec {
-  background: #000;
+  background-color: rgb(51, 51, 51);
 }
 
 .cta-sec .container {
@@ -1587,6 +1695,8 @@ textarea.input-field {
   display: grid;
   justify-items: center;
   padding: 20px;
+  border: 1px solid white;
+  border-radius: 20px;
 }
 
 .cta h3 {
@@ -1596,8 +1706,12 @@ textarea.input-field {
 }
 
 .cta p {
-  font-size: 27px;
+  font-size: 22px;
   font-weight: 400;
+}
+
+.cta img {
+  width: 25%;
 }
 
 .counter {
@@ -2178,15 +2292,36 @@ textarea.input-field {
 
 
 @media only screen and (max-width: 768px) {
-  
+
+  .review .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    gap: 60px;
+    text-align: center;
+  }
+
+  .review .section-text {
+    margin-top: 20px;
+
+  }
+
+  .review-card {
+    padding: 40px;
+  }
 
   .cta-sec .container {
     flex-direction: column;
-    padding-left:30px ;
-    padding-right:30px ;
+    padding-left: 30px;
+    padding-right: 30px;
   }
 
-  footer{
+  .cta img {
+    width: 20%;
+  }
+
+  footer {
     padding-left: 10px;
   }
 
@@ -2208,12 +2343,45 @@ textarea.input-field {
     grid-template-columns: repeat(2, 2fr);
   }
 
+  .review .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    gap: 60px;
+    text-align: center;
+  }
+
+  .review .section-text {
+    margin-top: 20px;
+
+  }
+
+  .review-card {
+    padding: 40px;
+  }
+
+  .cta p {
+    font-size: 22px;
+    font-weight: 400;
+  }
+
+  .cta h3 {
+    font-size: 27px;
+
+  }
+
+  .cta img {
+    width: 20%;
+  }
+
   .form-btn {
 
     font-size: 14px;
 
   }
-  .about .container{
+
+  .about .container {
     display: flex;
     flex-direction: column;
 
@@ -2641,11 +2809,13 @@ textarea.input-field {
 @media only screen and (max-width:768px) {
   .footer-brand {
     display: grid;
-    
+
   }
-  .footer-brand .logo{
+
+  .footer-brand .logo {
     justify-self: center;
   }
+
   .cards {
     animation: slide 20s linear infinite;
   }
