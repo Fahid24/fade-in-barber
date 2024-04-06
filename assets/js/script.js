@@ -96,8 +96,63 @@ window.onload= function () {
  }
 
 
+// ______________
+//   counetr  
+// _______________
+window.addEventListener('load', function () {
+  var loadingOverlay = document.getElementById("loadingOverlay");
+  var content = document.getElementById("content");
 
+  // Function to start the count animation when the element comes into view
+  function startCountAnimation(entries, observer) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const obj = entry.target;
+        const endValue = parseInt(obj.getAttribute("data-end-value")); // Get the end value from the data-end-value attribute
+        animateValue(obj, 0, endValue, 5000); // Start the counting effect from 0 to the end value over 5000 milliseconds
+        obj.classList.add("counting"); // Add a class to indicate that counting animation is active
+        observer.unobserve(obj); // Stop observing once the counting has started
+      }
+    });
+  }
 
+  // Intersection Observer configuration
+  const observer = new IntersectionObserver(startCountAnimation, { threshold: 0 });
+
+  // Observe all elements with the "count-element" class
+  const countElements = document.querySelectorAll('.count-element');
+  countElements.forEach(element => {
+    observer.observe(element);
+  });
+
+  // Delay for 2 seconds (2000 milliseconds) before hiding the loading overlay
+  setTimeout(function () {
+    // Hide loading overlay
+    loadingOverlay.style.opacity = "0";
+    // Show content
+    content.classList.remove("hidden");
+
+    // Start count animations after loading overlay is hidden
+    setTimeout(function () {
+      // Hide loading overlay completely after transition completes
+      loadingOverlay.style.display = "none";
+    }, 500); // Same as transition duration
+  }, 2000); // 2000 milliseconds = 2 seconds
+});
+
+// Function to animate the value (taken from previous examples)
+function animateValue(obj, start, end, duration) {
+  let startTimestamp = null;
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    obj.textContent = Math.floor(progress * (end - start) + start); // Use textContent instead of innerHTML
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+  window.requestAnimationFrame(step);
+}
 
 
 const links = document.querySelectorAll('.navbar-link');
